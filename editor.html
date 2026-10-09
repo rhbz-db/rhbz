@@ -2,61 +2,417 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<title>Редактор сайта</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Редактор сайта RHBZ</title>
 <style>
-  html, body { margin: 0; height: 100%; font-family: sans-serif; }
-  body { display: flex; flex-direction: column; }
-  #bar { display: flex; gap: 10px; align-items: center; padding: 8px 12px; background: #222; color: #eee; }
-  #bar button { padding: 6px 14px; cursor: pointer; }
-  #bar button:disabled { opacity: .4; cursor: default; }
-  #status { font-size: 13px; opacity: .8; }
-  iframe { flex: 1; width: 100%; border: 0; background: #fff; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { display: flex; flex-direction: column; font-family: system-ui, sans-serif; background: #0d0d0d; color: #ddd; font-size: 14px; }
+  button, select, input { font: inherit; }
+  button { background: #262626; color: #eee; border: 1px solid #444; padding: 5px 10px; cursor: pointer; border-radius: 3px; }
+  button:hover { background: #343434; }
+  button.primary { background: #6b4f00; border-color: #b08400; }
+  button.danger { background: #4a1212; border-color: #803030; }
+  button:disabled { opacity: .4; cursor: default; }
+  #top { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; padding: 8px 10px; background: #1a1a1a; border-bottom: 1px solid #333; }
+  #status { margin-left: auto; opacity: .75; font-size: 12px; }
+  #main { flex: 1; display: flex; min-height: 0; }
+  #side { width: 280px; overflow: auto; border-right: 1px solid #333; background: #131313; padding: 6px 0; }
+  .cat { color: #ffb300; font-size: 12px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; padding: 10px 12px 4px; cursor: pointer; }
+  .cat.sel { color: #fff; }
+  .item { padding: 5px 12px 5px 22px; cursor: pointer; font-size: 13px; border-left: 3px solid transparent; }
+  .item:hover { background: #1f1f1f; }
+  .item.sel { background: #2f2400; border-left-color: #ffb300; color: #fff; }
+  #work { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  #tb { display: flex; gap: 4px; flex-wrap: wrap; padding: 6px 8px; border-bottom: 1px solid #333; background: #171717; }
+  #tb button { padding: 3px 8px; }
+  #title { display: flex; gap: 8px; align-items: center; padding: 8px 12px; border-bottom: 1px solid #333; }
+  #title label { white-space: nowrap; opacity: .7; }
+  #title input { flex: 1; background: #101010; color: #eee; border: 1px solid #444; padding: 5px 7px; }
+  #ed { flex: 1; overflow: auto; padding: 18px 22px; background: #fff; color: #111; outline: none; line-height: 1.55; font-family: Georgia, serif; font-size: 16px; }
+  #ed img { max-width: 100%; height: auto; }
+  #ed h2 { margin: .6em 0 .3em; }
+  .sep { width: 1px; background: #333; margin: 0 4px; }
+  .hint { padding: 20px; opacity: .7; }
 </style>
 </head>
 <body>
-<div id="bar">
+
+<div id="top">
   <input type="file" id="open" accept=".html,text/html">
-  <button id="save" disabled>Скачать index.html</button>
+  <button id="btnNewCat">+ Раздел</button>
+  <button id="btnRenCat">Переименовать раздел</button>
+  <button id="btnDelCat" class="danger">Удалить раздел</button>
+  <span class="sep"></span>
+  <button id="btnNewDoc" class="primary">+ Документ</button>
+  <button id="btnDelDoc" class="danger">Удалить документ</button>
+  <button id="btnUp">↑</button>
+  <button id="btnDown">↓</button>
+  <span class="sep"></span>
+  <button id="btnSave" class="primary" disabled>Скачать index.html</button>
+  <a href="index.html" target="_blank" style="color:#ffb300">Открыть сайт</a>
   <span id="status">Загрузка...</span>
 </div>
-<iframe id="frame"></iframe>
+
+<div id="main">
+  <div id="side"></div>
+  <div id="work">
+    <div id="title">
+      <label for="dtitle">Название:</label>
+      <input id="dtitle" disabled>
+      <label for="moveTo">Раздел:</label>
+      <select id="moveTo" disabled></select>
+    </div>
+    <div id="tb">
+      <button data-cmd="bold"><b>B</b></button>
+      <button data-cmd="italic"><i>I</i></button>
+      <button data-cmd="underline"><u>U</u></button>
+      <span class="sep"></span>
+      <button data-block="h2">Заголовок</button>
+      <button data-block="h3">Подзаголовок</button>
+      <button data-block="p">Текст</button>
+      <span class="sep"></span>
+      <button data-cmd="insertUnorderedList">• Список</button>
+      <button data-cmd="insertOrderedList">1. Список</button>
+      <button data-cmd="justifyCenter">По центру</button>
+      <span class="sep"></span>
+      <button id="btnLink">Ссылка</button>
+      <button id="btnImg">Картинка</button>
+      <button data-cmd="removeFormat">Очистить формат</button>
+    </div>
+    <div id="ed" contenteditable="true"><div class="hint">Загрузка страницы...</div></div>
+  </div>
+</div>
 
 <script>
-  const frame = document.getElementById('frame');
-  const openInput = document.getElementById('open');
-  const saveBtn = document.getElementById('save');
-  const status = document.getElementById('status');
+const $ = id => document.getElementById(id);
 
-  function load(text) {
-    status.textContent = 'Загрузка страницы...';
-    saveBtn.disabled = true;
-    frame.onload = () => {
-      frame.contentDocument.designMode = 'on';   // whole page becomes editable
-      saveBtn.disabled = false;
-      status.textContent = 'Кликай по тексту и редактируй. Когда готово, нажми "Скачать index.html".';
-    };
-    frame.srcdoc = text;
-  }
+let dom = null;      // parsed index.html
+let nav = null;      // navData: { catKey: { label, items: [{id, l}] } }
+let curCat = null;
+let curDoc = null;
+let dirty = false;
 
-  // Opened from the same folder on a server (e.g. GitHub Pages): load index.html automatically.
-  fetch('index.html')
-    .then(r => { if (!r.ok) throw new Error(); return r.text(); })
-    .then(load)
-    .catch(() => { status.textContent = 'Выбери файл index.html кнопкой слева.'; });
+function setStatus(t) { $('status').textContent = t; }
 
-  // Opened locally (double-click): pick the file manually.
-  openInput.addEventListener('change', async () => {
-    const file = openInput.files[0];
-    if (file) load(await file.text());
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+}
+
+// Remove things that could break the public page; keep normal markup and styles.
+function sanitize(html) {
+  const t = document.createElement('template');
+  t.innerHTML = html;
+  const root = t.content;
+  root.querySelectorAll('script, object, embed, link').forEach(n => n.remove());
+  root.querySelectorAll('iframe').forEach(f => {
+    const src = f.getAttribute('src') || '';
+    if (!/^https:\/\/(www\.youtube(-nocookie)?\.com|youtube-nocookie\.com|player\.vimeo\.com)\//.test(src)) f.remove();
   });
+  root.querySelectorAll('*').forEach(el => {
+    [...el.attributes].forEach(a => { if (a.name.toLowerCase().startsWith('on')) el.removeAttribute(a.name); });
+  });
+  const d = document.createElement('div');
+  d.appendChild(root.cloneNode(true));
+  return d.innerHTML;
+}
 
-  saveBtn.addEventListener('click', () => {
-    const html = '<!doctype html>\n' + frame.contentDocument.documentElement.outerHTML;
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
-    a.download = 'index.html';
-    a.click();
-    status.textContent = 'Файл скачан. Замени им index.html в репозитории и закоммить.';
+function docEl(id) { return dom ? dom.getElementById('doc-' + id) : null; }
+
+function findItem(id) {
+  if (!nav || !id) return null;
+  for (const k of Object.keys(nav)) {
+    const index = nav[k].items.findIndex(x => x.id === id);
+    if (index !== -1) return { cat: k, item: nav[k].items[index], index };
+  }
+  return null;
+}
+
+// Write what is currently in the editor back into the document in memory.
+function commitEditor() {
+  if (!dom || !curDoc) return;
+  const el = docEl(curDoc);
+  if (!el) return;
+  el.innerHTML = sanitize($('ed').innerHTML);
+}
+
+function markDirty() {
+  dirty = true;
+  $('btnSave').disabled = false;
+}
+
+// ── Loading ──
+function loadText(text) {
+  const parsed = new DOMParser().parseFromString(text, 'text/html');
+  const sc = parsed.getElementById('nav-data');
+  if (!sc) { setStatus('Это не index.html сайта: нет блока nav-data.'); return; }
+  dom = parsed;
+  nav = JSON.parse(sc.textContent);
+  curCat = Object.keys(nav)[0];
+  curDoc = nav[curCat].items[0] ? nav[curCat].items[0].id : null;
+  dirty = false;
+  $('btnSave').disabled = true;
+  renderAll();
+  setStatus('Готово. Чтобы изменения появились на сайте, скачай index.html и загрузи его в репозиторий.');
+}
+
+// ── Rendering ──
+function renderAll() { renderSide(); renderWork(); }
+
+function renderSide() {
+  const side = $('side');
+  side.innerHTML = '';
+  for (const key of Object.keys(nav)) {
+    const cat = nav[key];
+    const h = document.createElement('div');
+    h.className = 'cat' + (key === curCat ? ' sel' : '');
+    h.textContent = cat.label;
+    h.onclick = () => selectCat(key);
+    side.appendChild(h);
+    if (key !== curCat) continue;
+    for (const it of cat.items) {
+      const d = document.createElement('div');
+      d.className = 'item' + (it.id === curDoc ? ' sel' : '');
+      d.textContent = it.l;
+      d.onclick = () => selectDoc(it.id);
+      side.appendChild(d);
+    }
+  }
+}
+
+function renderWork() {
+  const ed = $('ed'), title = $('dtitle'), move = $('moveTo');
+  const f = findItem(curDoc);
+  const enabled = !!f;
+  title.disabled = !enabled;
+  move.disabled = !enabled;
+  $('btnDelDoc').disabled = !enabled;
+  $('btnUp').disabled = !enabled;
+  $('btnDown').disabled = !enabled;
+  $('btnNewDoc').disabled = !nav || !curCat;
+  $('btnRenCat').disabled = !nav;
+  $('btnDelCat').disabled = !nav;
+  if (!f) {
+    title.value = '';
+    ed.innerHTML = '<div class="hint">Выбери документ слева или создай новый.</div>';
+    move.innerHTML = '';
+    return;
+  }
+  title.value = f.item.l;
+  const el = docEl(curDoc);
+  ed.innerHTML = el ? el.innerHTML : '<p>Текст документа не найден в index.html</p>';
+  move.innerHTML = Object.keys(nav)
+    .map(k => `<option value="${k}" ${k === f.cat ? 'selected' : ''}>${escapeHtml(nav[k].label)}</option>`).join('');
+}
+
+// ── Selection ──
+function selectDoc(id) {
+  commitEditor();
+  curDoc = id;
+  renderAll();
+}
+
+function selectCat(key) {
+  commitEditor();
+  curCat = key;
+  curDoc = nav[key].items[0] ? nav[key].items[0].id : null;
+  renderAll();
+}
+
+// ── Document ops ──
+function newId() { return 'doc_' + Date.now().toString(36); }
+
+function addDocElement(id, title) {
+  const sec = dom.createElement('div');
+  sec.className = 'doc';
+  sec.id = 'doc-' + id;
+  sec.innerHTML = '<h2>' + escapeHtml(title) + '</h2><p>Текст нового документа.</p>';
+  const all = dom.querySelectorAll('.doc');
+  const last = all[all.length - 1];
+  if (last) last.parentNode.insertBefore(sec, last.nextSibling);
+  else (dom.getElementById('app') || dom.body).appendChild(sec);
+}
+
+function newDoc() {
+  const title = prompt('Название нового документа:');
+  if (!title || !title.trim()) return;
+  commitEditor();
+  const id = newId();
+  nav[curCat].items.push({ id, l: title.trim() });
+  addDocElement(id, title.trim());
+  curDoc = id;
+  markDirty();
+  renderAll();
+}
+
+function deleteDoc() {
+  const f = findItem(curDoc);
+  if (!f) return;
+  if (!confirm('Удалить документ «' + f.item.l + '»?')) return;
+  nav[f.cat].items.splice(f.index, 1);
+  const el = docEl(curDoc);
+  if (el) el.remove();
+  curDoc = nav[f.cat].items[0] ? nav[f.cat].items[0].id : null;
+  markDirty();
+  renderAll();
+}
+
+function moveUpDown(delta) {
+  const f = findItem(curDoc);
+  if (!f) return;
+  const arr = nav[f.cat].items;
+  const j = f.index + delta;
+  if (j < 0 || j >= arr.length) return;
+  [arr[f.index], arr[j]] = [arr[j], arr[f.index]];
+  markDirty();
+  renderAll();
+}
+
+function moveToCategory(target) {
+  const f = findItem(curDoc);
+  if (!f || target === f.cat) return;
+  commitEditor();
+  nav[f.cat].items.splice(f.index, 1);
+  nav[target].items.push(f.item);
+  curCat = target;
+  markDirty();
+  renderAll();
+}
+
+// ── Category ops ──
+function newCat() {
+  const label = prompt('Название нового раздела:');
+  if (!label || !label.trim()) return;
+  commitEditor();
+  const key = 'cat_' + Date.now().toString(36);
+  const id = newId();
+  nav[key] = {
+    label: label.trim(), color: '#00d4ff', border: '#122840', glow: '#1e4870',
+    items: [{ id, l: 'Новый документ' }]
+  };
+  addDocElement(id, 'Новый документ');
+  const bar = dom.querySelector('.cat-btn');
+  if (bar && bar.parentNode) {
+    const b = dom.createElement('button');
+    b.className = 'cat-btn';
+    b.dataset.cat = key;
+    b.setAttribute('onclick', "openCat('" + key + "')");
+    b.textContent = label.trim();
+    bar.parentNode.appendChild(b);
+  }
+  curCat = key;
+  curDoc = id;
+  markDirty();
+  renderAll();
+}
+
+function renameCat() {
+  if (!nav[curCat]) return;
+  const label = prompt('Новое название раздела:', nav[curCat].label);
+  if (!label || !label.trim()) return;
+  nav[curCat].label = label.trim();
+  const btn = dom.querySelector('.cat-btn[data-cat="' + curCat + '"]');
+  if (btn) btn.textContent = label.trim();
+  markDirty();
+  renderAll();
+}
+
+function deleteCat() {
+  if (!nav[curCat]) return;
+  if (Object.keys(nav).length <= 1) { alert('Нельзя удалить последний раздел.'); return; }
+  if (!confirm('Удалить раздел «' + nav[curCat].label + '» со всеми документами?')) return;
+  commitEditor();
+  for (const it of nav[curCat].items) {
+    const el = docEl(it.id);
+    if (el) el.remove();
+  }
+  const btn = dom.querySelector('.cat-btn[data-cat="' + curCat + '"]');
+  if (btn) btn.remove();
+  delete nav[curCat];
+  curCat = Object.keys(nav)[0];
+  curDoc = nav[curCat].items[0] ? nav[curCat].items[0].id : null;
+  markDirty();
+  renderAll();
+}
+
+function renameDoc() {
+  const f = findItem(curDoc);
+  if (!f) return;
+  const t = $('dtitle').value.trim();
+  if (!t) return;
+  f.item.l = t;
+  markDirty();
+  renderSide();
+}
+
+// ── Save ──
+function saveFile() {
+  if (!dom) return;
+  commitEditor();
+  dom.getElementById('nav-data').textContent = JSON.stringify(nav);
+  const html = '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+  a.download = 'index.html';
+  a.click();
+  dirty = false;
+  setStatus('index.html скачан. Загрузи его в репозиторий вместо старого.');
+}
+
+// ── Wiring ──
+$('ed').addEventListener('input', () => { commitEditor(); markDirty(); });
+$('dtitle').addEventListener('input', renameDoc);
+$('moveTo').addEventListener('change', e => moveToCategory(e.target.value));
+$('btnNewCat').onclick = newCat;
+$('btnRenCat').onclick = renameCat;
+$('btnDelCat').onclick = deleteCat;
+$('btnNewDoc').onclick = newDoc;
+$('btnDelDoc').onclick = deleteDoc;
+$('btnUp').onclick = () => moveUpDown(-1);
+$('btnDown').onclick = () => moveUpDown(1);
+$('btnSave').onclick = saveFile;
+
+document.querySelectorAll('[data-cmd]').forEach(b => b.onclick = () => {
+  $('ed').focus();
+  document.execCommand(b.dataset.cmd, false, null);
+  commitEditor(); markDirty();
+});
+document.querySelectorAll('[data-block]').forEach(b => b.onclick = () => {
+  $('ed').focus();
+  document.execCommand('formatBlock', false, b.dataset.block);
+  commitEditor(); markDirty();
+});
+$('btnLink').onclick = () => {
+  const url = prompt('Адрес ссылки (https://...):');
+  if (!url) return;
+  $('ed').focus();
+  document.execCommand('createLink', false, url);
+  commitEditor(); markDirty();
+};
+$('btnImg').onclick = () => {
+  const name = prompt('Имя файла картинки из репозитория (например udav.png):');
+  if (!name) return;
+  $('ed').focus();
+  document.execCommand('insertHTML', false, '<img src="' + escapeHtml(name.trim()) + '" alt="">');
+  commitEditor(); markDirty();
+};
+
+window.addEventListener('beforeunload', e => {
+  if (dirty) { e.preventDefault(); e.returnValue = ''; }
+});
+
+$('open').addEventListener('change', async () => {
+  const f = $('open').files[0];
+  if (f) loadText(await f.text());
+});
+
+// On GitHub Pages the file sits next to the editor: load it automatically.
+fetch('index.html')
+  .then(r => { if (!r.ok) throw new Error(); return r.text(); })
+  .then(loadText)
+  .catch(() => {
+    $('ed').innerHTML = '<div class="hint">Выбери файл index.html кнопкой вверху.</div>';
+    setStatus('index.html не найден рядом. Выбери его вручную.');
   });
 </script>
 </body>
