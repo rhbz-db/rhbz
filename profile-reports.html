@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RHBZ | Личное Дело</title>
+<style>
+:root {
+  --bg: #060402; --bg-p: #070502;
+  --accent: #ffb300; --adim: rgba(255,179,0,.28); --alo: rgba(255,179,0,.07);
+  --border: #3a2a08; --bglow: #6b4a10; --danger: #ff3030;
+  --txt: #cca85a; --tdim: #8a6a30;
+  --f2: 'Russo One', sans-serif; --f3: 'JetBrains Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { 
+  background: var(--bg); color: var(--txt); font-family: var(--f3); 
+  height: 100vh; display: flex; flex-direction: column; padding: 20px;
+  overflow: hidden;
+}
+.wrap { 
+  width: 100%; height: 100%; display: flex; flex-direction: column; gap: 16px;
+}
+h1 { 
+  font-family: var(--f2); font-size: 15px; letter-spacing: 3px; 
+  color: var(--accent); text-transform: uppercase;
+}
+.panel { 
+  border: 1px solid var(--border); background: var(--bg-p); 
+  padding: 16px 20px; position: relative; display: flex; flex-direction: column;
+}
+.panel::before { 
+  content: attr(data-tag); position: absolute; top: -9px; left: 14px; 
+  background: var(--bg); padding: 0 6px; font-size: 10px; 
+  letter-spacing: 2px; color: var(--accent); 
+}
+.profile-head { display: flex; gap: 24px; align-items: center; }
+.avatar-video-wrap {
+  width: 105px; height: 105px; border: 1px solid var(--accent); 
+  background: #000; box-shadow: 0 0 15px rgba(255,179,0,0.18);
+  flex-shrink: 0; position: relative; overflow: hidden;
+}
+#avatar-video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.pinfo { font-size: 13px; line-height: 1.9; }
+.pinfo b { color: var(--accent); display: inline-block; width: 140px; }
+
+.reports-container {
+  flex: 1; border: 1px solid var(--border); background: rgba(0,0,0,0.6);
+  overflow-y: auto; padding: 16px; margin-top: 6px;
+}
+.reports-container::-webkit-scrollbar { width: 4px; }
+.reports-container::-webkit-scrollbar-thumb { background: var(--border); }
+
+.report-item {
+  border-bottom: 1px dashed var(--border); padding: 12px 0;
+  font-size: 12px; line-height: 1.6;
+}
+.report-item:last-child { border-bottom: none; }
+.report-meta {
+  font-family: var(--f2); font-size: 10px; color: var(--accent);
+  margin-bottom: 6px; letter-spacing: 1px; display: flex; justify-content: space-between;
+}
+.report-content { 
+  color: var(--txt); white-space: pre-wrap; font-size: 12px;
+  background: rgba(255,179,0,0.03); padding: 10px 14px; border-left: 2px solid var(--accent);
+}
+.hint { font-size: 11px; color: var(--tdim); text-align: center; margin-top: 40px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>РХБИЗ // ЛИЧНОЕ ДЕЛО</h1>
+
+  <div class="panel" data-tag="ИДЕНТИФИКАЦИЯ">
+    <div class="profile-head">
+      <div class="avatar-video-wrap">
+        <video id="avatar-video" autoplay loop muted playsinline src="/avatars/silicium-or-silicate.webm"></video>
+      </div>
+      <div class="pinfo">
+        <div><b>ПОЗЫВНОЙ:</b> <span id="p-name">Загрузка...</span></div>
+        <div><b>ОТДЕЛЕНИЕ:</b> <span id="p-dept" style="color:var(--accent); font-weight:bold;">...</span></div>
+        <div><b>DISCORD ID:</b> <span id="p-id">...</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" style="flex: 1;" data-tag="ЖУРНАЛ ВАШИХ ОТЧЁТОВ">
+    <div class="reports-container" id="reports-log">
+      <div class="hint">Установка связи с базой данных отчётов...</div>
+    </div>
+  </div>
+</div>
+
+<script>
+fetch('/api/me')
+  .then(res => res.json())
+  .then(data => {
+    if (data.ok && data.user && data.user.id) {
+      loadProfileData(data.user.id);
+    } else {
+      document.getElementById('p-name').textContent = "ОШИБКА АВТОРИЗАЦИИ";
+    }
+  })
+  .catch(() => {
+    document.getElementById('p-name').textContent = "ОШИБКА СЕТИ";
+  });
+
+function loadProfileData(discordId) {
+  fetch('/api/profile/' + discordId)
+    .then(r => r.json())
+    .then(p => {
+      document.getElementById('p-name').textContent = p.callsign || '—';
+      document.getElementById('p-id').textContent = p.discordId || discordId;
+      document.getElementById('p-dept').textContent = p.department || 'Подразделение BIO';
+      
+      const video = document.getElementById('avatar-video');
+      if (p.avatarVideo) {
+        video.src = p.avatarVideo;
+        video.load();
+        video.play().catch(()=>{});
+      }
+    });
+
+  fetch('/api/reports/' + discordId)
+    .then(r => r.json())
+    .then(data => {
+      const log = document.getElementById('reports-log');
+      if (!data.reports || data.reports.length === 0) {
+        log.innerHTML = '<div class="hint">Отчётов от вашего позывного не найдено.</div>';
+        return;
+      }
+
+      log.innerHTML = '';
+      data.reports.forEach(r => {
+        const d = document.createElement('div');
+        d.className = 'report-item';
+        const time = new Date(r.timestamp).toLocaleString('ru-RU');
+        let content = r.content.replace(/```css/g, '').replace(/```/g, '').trim();
+
+        d.innerHTML = `
+          <div class="report-meta">
+            <span>[${time}]</span>
+            <span>СТАТУС: ЗАРЕГИСТРИРОВАН</span>
+          </div>
+          <div class="report-content">${content}</div>
+        `;
+        log.appendChild(d);
+      });
+    })
+    .catch(() => {
+      document.getElementById('reports-log').innerHTML = '<div class="hint" style="color:var(--danger)">Ошибка загрузки личных отчетов.</div>';
+    });
+}
+</script>
+</body>
+</html>
