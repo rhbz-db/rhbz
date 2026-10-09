@@ -821,13 +821,11 @@ footer{border-top:1px solid var(--border);background:#010308;display:grid;grid-t
 <div id="panel-overlay" onclick="if(event.target===this)closePanel()">
   <div id="panel-modal">
     <div id="panel-tabs">
-      <button class="panel-tab" data-tab="pager" onclick="openPanel('pager')">Пейджер</button>
       <button class="panel-tab" data-tab="profile" onclick="openPanel('profile')">Профиль / Отчёты</button>
       <button id="panel-close" onclick="closePanel()">&#x2715;</button>
     </div>
     <div id="panel-body">
       <!-- iframe грузится лениво (data-src), при первом открытии вкладки -->
-      <iframe id="frame-pager" data-src="pager.html" title="Пейджер"></iframe>
       <iframe id="frame-profile" data-src="profile-reports.html" title="Профиль"></iframe>
     </div>
   </div>
@@ -884,21 +882,6 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
       </div>
       <div class="sb-scroll" id="sb-list"></div>
       
-      <!-- Панель счетчика онлайна и позывных -->
-      <div class="online-panel">
-        <div class="online-title">Кол-во в Сети:</div>
-        <div class="online-count-row">
-          <span class="online-icon">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 1"/>
-              <circle cx="12" cy="12" r="2" fill="var(--green)"/>
-            </svg>
-          </span>
-          <span id="online-num" class="online-number">0</span>
-        </div>
-        <div id="online-users-list" class="online-users">Синхронизация...</div>
-      </div>
     </aside>
 
     <div class="viewer" id="viewer">
@@ -908,7 +891,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 <h1 style="text-align: center; justify-content: center;">&nbsp; &nbsp; История Подразделения BIO</h1>
 <div class="map-container" style="width: 602px; max-width: 100%; height: 602px; margin-left: auto; margin-right: auto;">
   <div class="map-scan-line" style="animation-delay: -4.4284s;"></div>
-  <img src="/bio-lab-map.png" alt="КАРТА" style="display: block; margin-left: auto; margin-right: auto; animation-delay: -4.4284s; width: 600px !important; max-width: 100% !important; height: auto !important;">
+  <img src="bio-lab-map.png" alt="КАРТА" style="display: block; margin-left: auto; margin-right: auto; animation-delay: -4.4284s; width: 600px !important; max-width: 100% !important; height: auto !important;">
 </div>
 <div class="img-label" style="text-align:center; max-width:602px; margin:0 auto 20px;">// ЗАСЕКРЕЧЕННЫЙ СНИМОК // КАРТА ЛАБОРАТОРИИ BIO // ОСАКА-8 //</div>
 <div class="srow">
@@ -966,7 +949,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 <div class="grid">
   <!-- УДАВ -->
   <div class="card">
-    <div class="crt-img"><img src="/udav.png" alt="УДАВ" style="animation-delay: -5.7125s;"></div>
+    <div class="crt-img"><img src="udav.png" alt="УДАВ" style="animation-delay: -5.7125s;"></div>
     <div class="card-t">Боевой пульсар У.Д.А.В.</div>
     <p>Устройство Дестабилизации Антропоморфных Видов на основе импульсной технологии Альянса.&nbsp;</p><p>Разработан BIO-4 | Плутоний</p>
     <details>
@@ -985,7 +968,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- ДЕКОНТАМИНАТОР -->
   <div class="card">
-    <div class="crt-img"><img src="/decon.png" alt="Деконтаминатор" style="animation-delay: -5.7127s;"></div>
+    <div class="crt-img"><img src="decon.png" alt="Деконтаминатор" style="animation-delay: -5.7127s;"></div>
     <div class="card-t">Деконтаминатор РХБЗ</div>
     <p>Тяжелая ранцевая установка для санитарной обработки и термического выжигания био-очагов. 
     Возможна установка других баллонов, например с CO2, для пожаротушения</p><p><font color="#e6473b">&gt; С одобрения: Капитан BIO</font></p><p><font color="#4bd964">&gt; Без одобрения: От SLT | ЧС</font></p>
@@ -1007,7 +990,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- ЧИСТЯЩИЙ РАСТВОР -->
   <div class="card">
-    <div class="crt-img"><img src="/chistyashiy-rastvor.png" alt="Чистящий раствор" style="animation-delay: -5.713s;"></div>
+    <div class="crt-img"><img src="chistyashiy-rastvor.png" alt="Чистящий раствор" style="animation-delay: -5.713s;"></div>
     <div class="card-t">Чистящий раствор</div>
     <p>Высокоэффективный биохимический концентрат на основе лимфы муравьиных львов.</p>
     <details>
@@ -1025,7 +1008,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- ЯБХ НАБОРЫ -->
   <div class="card">
-    <div class="crt-img"><img src="/yabh.png" alt="ЯБХ" style="animation-delay: -5.7131s;"></div>
+    <div class="crt-img"><img src="yabh.png" alt="ЯБХ" style="animation-delay: -5.7131s;"></div>
     <div class="card-t">ЯБХ Наборы (1, 2, 3)</div>
     <p>Комплекты оперативного медицинского противодействия радиационным и токсическим поражениям.</p>
     <details>
@@ -1047,7 +1030,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 <div class="grid">
   <!-- СК-У -->
   <div class="card">
-    <div class="crt-img"><img src="/scanner-universal.png" alt="СК-У" style="animation-delay: -5.7133s;"></div>
+    <div class="crt-img"><img src="scanner-universal.png" alt="СК-У" style="animation-delay: -5.7133s;"></div>
     <div class="card-t">Сканер-Универсальный (СК-У)</div>
     <p>Многоцелевое носимое устройство для обнаружения химических, биологических, радиационных и инвазивных угроз.</p>
     <details>
@@ -1075,7 +1058,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- СК-С -->
   <div class="card">
-    <div class="crt-img"><img src="/scanner-stationar.png" alt="СК-С" style="animation-delay: -5.7134s;"></div>
+    <div class="crt-img"><img src="scanner-stationar.png" alt="СК-С" style="animation-delay: -5.7134s;"></div>
     <div class="card-t">Сканер-стационарный (СК-С)</div>
     <p>Высокоточный переносной комплекс первого поколения на треноге для непрерывного контроля охраняемых зон.</p>
     <details>
@@ -1100,7 +1083,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- ПОРТАТИВНАЯ ЛАБОРАТОРИЯ -->
   <div class="card">
-    <div class="crt-img"><img src="/portable-lab.png" alt="ПЛ" style="animation-delay: -5.7136s;"></div>
+    <div class="crt-img"><img src="portable-lab.png" alt="ПЛ" style="animation-delay: -5.7136s;"></div>
     <div class="card-t">Портативная лаборатория (ПЛ)</div>
     <p>Компактная экспресс-лаборатория в защищенном кейсе для химического и органического экспресс-анализа.</p>
     <details>
@@ -1122,7 +1105,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- ДОЗИМЕТР -->
   <div class="card">
-    <div class="crt-img"><img src="/dozimetr.png" alt="Дозиметр" style="animation-delay: -5.7138s;"></div>
+    <div class="crt-img"><img src="dozimetr.png" alt="Дозиметр" style="animation-delay: -5.7138s;"></div>
     <div class="card-t">Счетчик Гейгера / Дозиметр</div>
     <p>Надежный носимый прибор для индикации плотности потока ионизирующего излучения.</p>
     <details>
@@ -1165,7 +1148,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- ХВАТАТЕЛЬ КЛЕШНЯ -->
   <div class="card">
-    <div class="crt-img"><img src="/hvatatel-kleshnya.png" alt="Хвататель" style="animation-delay: -5.7139s;"></div>
+    <div class="crt-img"><img src="hvatatel-kleshnya.png" alt="Хвататель" style="animation-delay: -5.7139s;"></div>
     <div class="card-t">Хвататель «Клешня»</div>
     <p>Инструмент дистанционного захвата, фиксации и медикаментозного подавления агрессивных биообъектов.</p>
     <details>
@@ -1186,7 +1169,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- ОКОВЫ ГРОМ MK-1 -->
   <div class="card">
-    <div class="crt-img"><img src="/okovy-grom-mk1.png" alt="Оковы Гром" style="animation-delay: -5.7141s;"></div>
+    <div class="crt-img"><img src="okovy-grom-mk1.png" alt="Оковы Гром" style="animation-delay: -5.7141s;"></div>
     <div class="card-t">Оковы «Гром MK-1»</div>
     <p>Высокотехнологичный комплекс оков для контроля над существами с высокой физической силой.</p>
     <details>
@@ -1214,7 +1197,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 <div class="grid">
   <!-- СТАНДАРТНАЯ ФОРМА -->
   <div class="card">
-    <div class="crt-img"><img src="/based-default-uniform.png" alt="Стандарт" style="animation-delay: -5.7143s;"></div>
+    <div class="crt-img"><img src="based-default-uniform.png" alt="Стандарт" style="animation-delay: -5.7143s;"></div>
     <div class="card-t">Стандартная форма BIO</div>
     <p>Герметичный двухсекционный защитный костюм из композитных материалов.</p>
     <details open="">
@@ -1232,7 +1215,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- УСИЛЕННАЯ ФОРМА -->
   <div class="card">
-    <div class="crt-img"><img src="/armed-super-uniform.png" alt="Усиленная" style="animation-delay: -5.7144s;"></div>
+    <div class="crt-img"><img src="armed-super-uniform.png" alt="Усиленная" style="animation-delay: -5.7144s;"></div>
     <div class="card-t">Усиленная форма ARATES</div>
     <p>Тяжелый изолирующий спецкостюм с полуактивным силовым экзо-каркасом.</p>
     <details open="">
@@ -1250,7 +1233,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- ЛЕГКИЙ БРОНЕЖИЛЕТ -->
   <div class="card">
-    <div class="crt-img"><img src="/lite-arm.png" alt="Лёгкий" style="animation-delay: -5.7146s;"></div>
+    <div class="crt-img"><img src="lite-arm.png" alt="Лёгкий" style="animation-delay: -5.7146s;"></div>
     <div class="card-t">CPUV.V4 «Лёгкий»</div>
     <p>Довоенный облегчённый бронежилет, доработанный под нужды подразделения.</p>
     <details open="">
@@ -1264,7 +1247,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- СРЕДНИЙ БРОНЕЖИЛЕТ -->
   <div class="card">
-    <div class="crt-img"><img src="/med-arm.png" alt="Средний" style="animation-delay: -5.7146s;"></div>
+    <div class="crt-img"><img src="med-arm.png" alt="Средний" style="animation-delay: -5.7146s;"></div>
     <div class="card-t">CPMV.V2 «Средний»</div>
     <p>Кевларовый бронежилет с термически стойкой внешней облицовкой.</p>
     <details open="">
@@ -1278,7 +1261,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- ТЯЖЕЛЫЙ БРОНЕЖИЛЕТ -->
   <div class="card">
-    <div class="crt-img"><img src="/heavy-arm.png" alt="Тяжёлый" style="animation-delay: -5.7147s;"></div>
+    <div class="crt-img"><img src="heavy-arm.png" alt="Тяжёлый" style="animation-delay: -5.7147s;"></div>
     <div class="card-t">CPMV.V3 «Тяжёлый»</div>
     <p>Тяжелый каркасный бронежилет повышенной площади покрытия с металлокерамическими пластинами.</p>
     <details open="">
@@ -1295,7 +1278,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 <div class="grid">
   <!-- ИНЖЕНЕРНЫЙ КОМПЛЕКТ -->
   <div class="card">
-    <div class="crt-img"><img src="/engineer_kit.png" alt="Стандартный Инженерный Комплект" style="animation-delay: -5.7148s;"></div>
+    <div class="crt-img"><img src="engineer_kit.png" alt="Стандартный Инженерный Комплект" style="animation-delay: -5.7148s;"></div>
     <div class="card-t">Стандартный Инженерный Комплект</div>
     <p>Полный набор ручных инструментов тактического инженера для оперативного ремонта.</p>
     <details>
@@ -1315,7 +1298,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- АУдРБ ЗАСЛОН -->
   <div class="card">
-    <div class="crt-img"><img src="/audrb.png" alt="АУдРБ «Заслон»" style="animation-delay: -5.715s;"></div>
+    <div class="crt-img"><img src="audrb.png" alt="АУдРБ «Заслон»" style="animation-delay: -5.715s;"></div>
     <div class="card-t">АУдРБ «Заслон»</div>
     <p>Автоматизированная установка для ускоренного развертывания портативных фортификаций.</p>
     <details>
@@ -1329,7 +1312,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- ТЕРМОПЛАЩ -->
   <div class="card">
-    <div class="crt-img"><img src="/termo-plash.png" alt="Термо-плащ" style="animation-delay: -5.7151s;"></div>
+    <div class="crt-img"><img src="termo-plash.png" alt="Термо-плащ" style="animation-delay: -5.7151s;"></div>
     <div class="card-t">Термо-плащ</div>
     <p>Быстросъемный защитный плащ из термостойкого силиконизированного волокна.</p>
     <details>
@@ -1346,7 +1329,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 <div class="grid">
   <!-- МЕД РЮКЗАК -->
   <div class="card">
-    <div class="crt-img"><img src="/medic-backpack.png" alt="Мед рюкзак" style="animation-delay: -5.7152s;"></div>
+    <div class="crt-img"><img src="medic-backpack.png" alt="Мед рюкзак" style="animation-delay: -5.7152s;"></div>
     <div class="card-t">Рюкзак Медицинский</div>
     <p>Комплект экстренной полевой помощи и радиационно-химической реанимации.</p>
     <details>
@@ -1360,7 +1343,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- ИНЖ РЮКЗАК -->
   <div class="card">
-    <div class="crt-img"><img src="/engineer-backpack.png" alt="Инж рюкзак" style="animation-delay: -5.7153s;"></div>
+    <div class="crt-img"><img src="engineer-backpack.png" alt="Инж рюкзак" style="animation-delay: -5.7153s;"></div>
     <div class="card-t">Рюкзак Инженерный</div>
     <p>Ремонтно-технический комплект для быстрого восстановления кабелей и приборов.</p>
     <details>
@@ -1374,7 +1357,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- ТЕХ РЮКЗАК -->
   <div class="card">
-    <div class="crt-img"><img src="/tech-backpack.png" alt="Тех рюкзак" style="animation-delay: -5.7154s;"></div>
+    <div class="crt-img"><img src="tech-backpack.png" alt="Тех рюкзак" style="animation-delay: -5.7154s;"></div>
     <div class="card-t">Рюкзак Технический</div>
     <p>Многофункциональный ранец обеспечения связи, радаров и химического контроля.</p>
     <details>
@@ -1398,7 +1381,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- Терминал -->
   <div class="card">
-    <div class="crt-img"><img src="/combine-terminal.png" alt="Терминал"></div>
+    <div class="crt-img"><img src="combine-terminal.png" alt="Терминал"></div>
     <div class="card-t">Терминал Альянса</div>
     <p>Многофункциональный узел и интерфейс для работы с базами данных и периферийной техникой.</p>
     <details>
@@ -1419,7 +1402,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- Силовое Поле -->
   <div class="card">
-    <div class="crt-img"><img src="/combine-field.png" alt="Поле"></div>
+    <div class="crt-img"><img src="combine-field.png" alt="Поле"></div>
     <div class="card-t">Силовое Поле</div>
     <p>Двухстолбчатый эмиттер защитных силовых барьеров. Блокирует прохождение физических тел и жидкостей.</p>
     <details>
@@ -1433,7 +1416,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- Ограничитель Периметра -->
   <div class="card">
-    <div class="crt-img"><img src="/ogranichitel-perimetra.png" alt="Ограничитель"></div>
+    <div class="crt-img"><img src="ogranichitel-perimetra.png" alt="Ограничитель"></div>
     <div class="card-t">Ограничитель Периметра</div>
     <p>Устройство Патруля для подавления активности опасных форм жизни (роя) в радиусе своего действия.</p>
     <details>
@@ -1488,7 +1471,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- Мобильный Генератор -->
   <div class="card">
-    <div class="crt-img"><img src="/mobile-generator.png" alt="Генератор"></div>
+    <div class="crt-img"><img src="mobile-generator.png" alt="Генератор"></div>
     <div class="card-t">Мобильный Генератор</div>
     <p>Портативная полевая установка на базе реактора темной энергии для питания тактических систем.</p>
     <details>
@@ -1504,7 +1487,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
   <!-- СРП -->
   <div class="card">
-    <div class="crt-img"><img src="/systema-rannego-preduprezhdenia.png" alt="СРП"></div>
+    <div class="crt-img"><img src="systema-rannego-preduprezhdenia.png" alt="СРП"></div>
     <div class="card-t">Система раннего предупреждения</div>
     <p>Многофункциональный стационарный модуль для автоматического мониторинга биологических и радиационных угроз.</p>
     <details>
@@ -1802,70 +1785,70 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">
 
   <div class="card card-danger">
-    <div class="crt-img"><img src="/allidovoe-gnezdo.png" alt="Гнездо"></div>
+    <div class="crt-img"><img src="allidovoe-gnezdo.png" alt="Гнездо"></div>
     <div class="card-t">Аллидовое Гнездо</div>
     <p>Инкубационный узел флоры Зен и паразитов. Место «инкубации» сердца флоры Зен. Уничтожение обязательно при обнаружении.</p>
     <div class="card-class cl-high">▲ УГРОАЫ: ВЫСОКАЯ</div>
   </div>
 
   <div class="card card-danger">
-    <div class="crt-img"><img src="/prinoviy-raspilitel.png" alt="Приновый"></div>
+    <div class="crt-img"><img src="prinoviy-raspilitel.png" alt="Приновый"></div>
     <div class="card-t">Приновый распылитель</div>
     <p>Захватывает жертву хватом лапы. Обнаруживает в радиусе 10м, крайне опасен в 3м. Запрещено приближаться без специальных средств.</p>
     <div class="card-class cl-high">▲ УГРОЗА: ВЫСОКАЯ</div>
   </div>
 
   <div class="card card-warn">
-    <div class="crt-img"><img src="/otrostok-gidry.png" alt="Гидра"></div>
+    <div class="crt-img"><img src="otrostok-gidry.png" alt="Гидра"></div>
     <div class="card-t">Отросток Гидры</div>
     <p>В молодом виде — обездвижен, но взрослея приобретает способность двигаться и атаковать. Активная хищная органика Зен.</p>
     <div class="card-class cl-mid-high">◆ УГРОЗА: СРЕДНЕ-ВЫСОКАЯ</div>
   </div>
 
   <div class="card card-warn">
-    <div class="crt-img"><img src="/zakuporenny-spor.png" alt="Закупоренная"></div>
+    <div class="crt-img"><img src="zakuporenny-spor.png" alt="Закупоренная"></div>
     <div class="card-t">Закупоренная спора</div>
     <p>Органический «малый желудок» флоры Зен. Высвобождает газовые токсины под давлением.<br><span style="color:var(--tdim);font-size:.75rem">→ При созревании образует <strong>Опылённую спору</strong></span></p>
     <div class="card-class cl-mid">● УГРОЗА: СРЕДНЯЯ</div>
   </div>
 
   <div class="card card-warn">
-    <div class="crt-img"><img src="/opylenny-spor.png" alt="Спора"></div>
+    <div class="crt-img"><img src="opylenny-spor.png" alt="Спора"></div>
     <div class="card-t">Опылённая спора</div>
     <p>Распространяет мелкую спору в радиусе 5-8м. Безопасна на расстоянии, опасна вблизи.<br><span style="color:var(--tdim);font-size:.75rem">← Получается из <strong>Закупоренной споры</strong> &nbsp;·&nbsp; → При опылении образует <strong>Цеплийский цветок</strong></span></p>
     <div class="card-class cl-mid-high">◆ УГРОЗА: СРЕДНЕ-ВЫСОКАЯ</div>
   </div>
 
   <div class="card card-warn">
-    <div class="crt-img"><img src="/cepliysky-tsvetok.png" alt="Цветок"></div>
+    <div class="crt-img"><img src="cepliysky-tsvetok.png" alt="Цветок"></div>
     <div class="card-t">Цеплийский цветок</div>
     <p>Зен-флора, приманивающая насекомых своим запахом и опыляющая их спорами — те становятся переносчиками заразы. Высокое токсическое испарение при раздражении.<br><span style="color:var(--tdim);font-size:.75rem">← Получается из <strong>Опылённой споры</strong></span></p>
     <div class="card-class cl-mid">● УГРОАЫ: СРЕДНЯЯ</div>
   </div>
 
   <div class="card card-warn">
-    <div class="crt-img"><img src="/oksinovie-kapli.png" alt="Оксин"></div>
+    <div class="crt-img"><img src="oksinovie-kapli.png" alt="Оксин"></div>
     <div class="card-t">Оксиновые капли</div>
     <p>Оксиновые капли представляют собой объект жидкой субстанции с кислотным эффектом способным оставить серьезный ожог на коже живого существа. Появляются посредством массивного разрастания.</p>
     <div class="card-class cl-mid">◆ УГРОЗА: МАЛАЯ-СРЕДНЯЯ</div>
   </div>
 
   <div class="card">
-    <div class="crt-img"><img src="/organievy-yaichnik.png" alt="Яичник"></div>
+    <div class="crt-img"><img src="organievy-yaichnik.png" alt="Яичник"></div>
     <div class="card-t">Органиевый яичник</div>
     <p>Трупный мешок — рассадник заразы. Формируется на трупах. При контакте споры через запах попадают в организм, делая того переносчиком.</p>
     <div class="card-class cl-low-mid">◇ УГРОЗА: МАЛАЯ-СРЕДНЯЯ</div>
   </div>
 
   <div class="card">
-    <div class="crt-img"><img src="/trupniy-parazit.png" alt="Трупный паразит"></div>
+    <div class="crt-img"><img src="trupniy-parazit.png" alt="Трупный паразит"></div>
     <div class="card-t">Трупный паразит</div>
     <p>Небольшой росток на гниющих телах. На расстоянии не угрожает, но вблизи способен поразить незащищённые участки тела.</p>
     <div class="card-class cl-low-mid">◇ УГРОЗА: МАЛАЯ-СРЕДНЯЯ</div>
   </div>
 
   <div class="card">
-    <div class="crt-img"><img src="/organieviy-glaz.png" alt="Глаз"></div>
+    <div class="crt-img"><img src="organieviy-glaz.png" alt="Глаз"></div>
     <div class="card-t">Органиевый глаз</div>
     <p>Направляющее звено органической системы Зен. Реагирует на тепловое излучение, используется как маяк для Зен-фауны.</p>
     <div class="card-class cl-low">○ УГРОЗА: МАЛАЯ</div>
@@ -3023,7 +3006,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
 <h1 style="">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Допуск в Лабораторный Блок</h1><div class="map-container" style="margin-bottom: 18px; width: 606px; max-width: 100%; height: 606px; margin-left: auto; margin-right: auto;">
   <div class="map-scan-line"></div>
-  <img src="/bio-lab-map.png" alt="КАРТА" style="width: 600px !important; max-width: 100% !important; height: auto !important; display: block; margin-left: auto; margin-right: auto;">
+  <img src="bio-lab-map.png" alt="КАРТА" style="width: 600px !important; max-width: 100% !important; height: auto !important; display: block; margin-left: auto; margin-right: auto;">
 </div><div class="img-label" style="text-align:center; max-width:602px; margin:0 auto 20px;"><font color="#e0a020">// СХЕМА // КАРТА ЛАБОРАТОРИИ BIO // ОСАКА-8 //</font></div>
 
 <div class="box box-warn">
@@ -3062,14 +3045,14 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
 <div class="img-wrap" style="margin-top:20px">
   <div class="crt-img crt-img-hero" style="">
-    <img src="/based-default-uniform.png" alt="Стандартная униформа BIO" style="width: 500px !important; max-width: 100% !important; height: 500px !important; display: block; margin-left: auto; margin-right: auto;">
+    <img src="based-default-uniform.png" alt="Стандартная униформа BIO" style="width: 500px !important; max-width: 100% !important; height: 500px !important; display: block; margin-left: auto; margin-right: auto;">
   </div>
   <div class="img-label" style="text-align: center;"><font color="#f6c11a">// СТАНДАРТНАЯ УНИФОРМА BIO // СЗД КЛАСС-II // ТИП-I //</font></div>
 </div>
 
 <div class="img-wrap" style="margin-top:20px">
   <div class="crt-img crt-img-hero" style="width: 1600px; max-width: 100%; height: 500px;">
-    <img src="/armed-super-uniform.png" alt="Усиленная униформа ARATES" style="width: 505px !important; max-width: 100% !important; height: 505px !important; display: block; margin-left: auto; margin-right: auto;">
+    <img src="armed-super-uniform.png" alt="Усиленная униформа ARATES" style="width: 505px !important; max-width: 100% !important; height: 505px !important; display: block; margin-left: auto; margin-right: auto;">
   </div>
   <div class="img-label" style="text-align: center;"><font color="#cc6e1a">// УСИЛЕННАЯ УНИФОРМА ARATES // ТЯЖЁЛЫЙ ЭКЗОКОСТЮМ КЛАСС-I // ТИП-II //</font></div>
 </div>
@@ -3332,10 +3315,10 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 <section id="doc-departments" class="doc">
 <h1>Отделения и Должности BIO</h1>
 <div class="grid">
-  <div class="card"><div class="crt-img"><img src="/bio-unit-uncer.png" alt="UNCER" style="animation-delay: -1.9678s;"></div><div class="card-t">Командование (UNCER)</div><p><strong>Задачи:</strong> Контроль, планирование операций, руководство составом и лабораториями.<br><strong>Допуск:</strong> Подполковники и Полковники</p><div class="card-class cl-high">КомандНЫЙ состав подразделения&nbsp;</div></div>
-  <div class="card"><div class="crt-img"><img src="/bio-unit-decon.png" alt="BIOLOGIST" style="animation-delay: -1.9683s;"></div><div class="card-t">Отдел BIOLOGIST</div><p><strong>Задачи:</strong> Исследование образцов, полевой забор проб, медицина, синтез антидотов.<br><strong>Должность:</strong> DECON<br><strong>Допуск:</strong> Рекрут — Майор</p><div class="card-class cl-low-mid">БИО-ИНЖЕНЕРНАЯ СПЕЦИАЛИЗАЦИЯ&nbsp;</div></div>
-  <div class="card"><div class="crt-img"><img src="/bio-unit-contero-etera.png" alt="CONTERO" style="animation-delay: -1.9691s;"></div><div class="card-t">Отдел CONTERO</div><p><strong>Задачи:</strong> Сдерживание карантина, инженерные работы, ремонт оборудования, дезинфекция шлюзов.<br><strong>Должность:</strong> TERO<br><strong>Допуск:</strong> Мл.Лейтенант — Майор</p><div class="card-class cl-mid">ИнженернАЯ СПЕЦИАЛИЗАЦИЯ&nbsp;</div></div>
-  <div class="card"><div class="crt-img"><img src="/bio-unit-arates.png" alt="ARATES" style="animation-delay: -1.9692s;"></div><div class="card-t">Отдел ARATES</div><p><strong>Задачи:</strong> Уничтожение очагов заражения, зачистка территории, силовое прикрытие.<br><strong>Должность:</strong> ARATES<br><strong>Допуск:</strong> Ст.Лейтенант — Майор</p><div class="card-class cl-high">ЛИКВИДАЦИОННАЯ СПЕЦИАЛИЗАЦИЯ&nbsp;</div></div>
+  <div class="card"><div class="crt-img"><img src="bio-unit-uncer.png" alt="UNCER" style="animation-delay: -1.9678s;"></div><div class="card-t">Командование (UNCER)</div><p><strong>Задачи:</strong> Контроль, планирование операций, руководство составом и лабораториями.<br><strong>Допуск:</strong> Подполковники и Полковники</p><div class="card-class cl-high">КомандНЫЙ состав подразделения&nbsp;</div></div>
+  <div class="card"><div class="crt-img"><img src="bio-unit-decon.png" alt="BIOLOGIST" style="animation-delay: -1.9683s;"></div><div class="card-t">Отдел BIOLOGIST</div><p><strong>Задачи:</strong> Исследование образцов, полевой забор проб, медицина, синтез антидотов.<br><strong>Должность:</strong> DECON<br><strong>Допуск:</strong> Рекрут — Майор</p><div class="card-class cl-low-mid">БИО-ИНЖЕНЕРНАЯ СПЕЦИАЛИЗАЦИЯ&nbsp;</div></div>
+  <div class="card"><div class="crt-img"><img src="bio-unit-contero-etera.png" alt="CONTERO" style="animation-delay: -1.9691s;"></div><div class="card-t">Отдел CONTERO</div><p><strong>Задачи:</strong> Сдерживание карантина, инженерные работы, ремонт оборудования, дезинфекция шлюзов.<br><strong>Должность:</strong> TERO<br><strong>Допуск:</strong> Мл.Лейтенант — Майор</p><div class="card-class cl-mid">ИнженернАЯ СПЕЦИАЛИЗАЦИЯ&nbsp;</div></div>
+  <div class="card"><div class="crt-img"><img src="bio-unit-arates.png" alt="ARATES" style="animation-delay: -1.9692s;"></div><div class="card-t">Отдел ARATES</div><p><strong>Задачи:</strong> Уничтожение очагов заражения, зачистка территории, силовое прикрытие.<br><strong>Должность:</strong> ARATES<br><strong>Допуск:</strong> Ст.Лейтенант — Майор</p><div class="card-class cl-high">ЛИКВИДАЦИОННАЯ СПЕЦИАЛИЗАЦИЯ&nbsp;</div></div>
 </div>
 </section>
 
@@ -4462,7 +4445,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
 
     <div class="doc" id="doc-doc_msdcajig">
       <h2 style="text-align: center;"><font face="Unbounded, sans-serif" style="font-size: 32px;">Почетные Сотрудники ПОДРАЗДЕЛЕНИЯ BIO</font></h2>
-      <div class="crt-img" style="box-sizing: border-box; width: 1484px; height: 472px; transform: translate(40px, 20px);" data-rs-tx="40" data-rs-ty="20"><img src="/favicon.png" alt="" style="animation-delay: -3.1617s; display: block; margin-left: auto; margin-right: auto; width: 444px !important; max-width: 100% !important; height: 444px !important;"></div><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 71.75px;" data-rs-tx="0" data-rs-ty="0"><font face="Russo One, sans-serif" color="#e0a020"><span style="font-size: 22px;"><br></span></font></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 71.75px;" data-rs-tx="0" data-rs-ty="0"><font face="Russo One, sans-serif" color="#e0a020"><span style="font-size: 22px;">Здесь указан список выдающихся сотрудников подразделения, кто когда-либо вел научные работы, при этом успев дожить до момента внесения в Базу Данных</span></font></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 51.75px;" data-rs-tx="0" data-rs-ty="0"><font style="font-size: 22px;">&gt; <font color="#f6c11a">BIO | Астра</font>&nbsp;-&gt; Создатель: Подразделения BIO, Самых первых Баз Данных, БКПД&nbsp;</font></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 81.75px;" data-rs-tx="0" data-rs-ty="0"><font style="font-size: 22px;">&gt; <font color="#f6c11a">BIO | Плутоний</font> -&gt; Создатель: У.Д.А.В. ; Экзоскелет Б.И.З.О.Н. ; Работ по видам Кристаллов ; <br>Микробиологии (Спор) Мира Зен, Глав.Редактор и Основатель текущей Базы Данных подразделения</font></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 71.75px;" data-rs-tx="0" data-rs-ty="0"><span style="font-size: 22px;">&gt; </span><font color="#f6c11a" style="font-size: 22px;">BIO| Алазан </font><span style="font-size: 22px;">-&gt; Создатель: Оков "Гром" ; Ранних Версий Баз Данных Подразделения ; <br>Редактор Базы Данных</span></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 51.75px;" data-rs-tx="0" data-rs-ty="0"><font style="font-size: 22px;">&gt; <font color="#f6c11a">BIO | Молот</font> -&gt; Создатель: Сканера Портативного</font></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 71.75px;" data-rs-tx="0" data-rs-ty="0"><font color="#e0a020" face="Russo One, sans-serif"><span style="font-size: 22px;"><br></span></font></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 71.75px;" data-rs-tx="0" data-rs-ty="0"><font color="#e0a020" face="Unbounded, sans-serif" style="font-size: 32px;"><b><br></b></font></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 71.75px;" data-rs-tx="0" data-rs-ty="0"><font color="#e0a020" face="Unbounded, sans-serif" style="font-size: 32px;"><b>Сотрудники, что сделали научные работы, но особо не выделились</b></font></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 51.75px;" data-rs-tx="0" data-rs-ty="0"><font style="font-size: 22px;">&gt; <font color="#f5e29a">BIO | Блиц</font>&nbsp;-&gt; Создатель: Проекта&nbsp;“Граната Истребления Деструктивных Растущих Агентов”</font></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 51.75px;" data-rs-tx="0" data-rs-ty="0"><font style="font-size: 22px;">&gt; <font color="#f5e29a">BIO | Реминор</font> -&gt; Создатель: Работы "Поведение Вирмитов"</font></p><div class="bio-bgmusic" id="bgm_msyqfxwc" data-src="https://storage.yandexcloud.net/city-8/music/other/BIO-athem.mp3" contenteditable="false" style="display: inline-block; width: 28px; height: 28px; opacity: 0.35; border: 1px dashed rgb(136, 136, 136); border-radius: 4px; text-align: center; line-height: 28px; cursor: default;" title="Фоновая музыка (невидима на сайте): https://storage.yandexcloud.net/city-8/music/other/BIO-athem.mp3">♪</div><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 51.75px;" data-rs-tx="0" data-rs-ty="0"><font style="font-size: 22px;"></font></p>
+      <div class="crt-img" style="box-sizing: border-box; width: 1484px; height: 472px; transform: translate(40px, 20px);" data-rs-tx="40" data-rs-ty="20"><img src="favicon.png" alt="" style="animation-delay: -3.1617s; display: block; margin-left: auto; margin-right: auto; width: 444px !important; max-width: 100% !important; height: 444px !important;"></div><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 71.75px;" data-rs-tx="0" data-rs-ty="0"><font face="Russo One, sans-serif" color="#e0a020"><span style="font-size: 22px;"><br></span></font></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 71.75px;" data-rs-tx="0" data-rs-ty="0"><font face="Russo One, sans-serif" color="#e0a020"><span style="font-size: 22px;">Здесь указан список выдающихся сотрудников подразделения, кто когда-либо вел научные работы, при этом успев дожить до момента внесения в Базу Данных</span></font></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 51.75px;" data-rs-tx="0" data-rs-ty="0"><font style="font-size: 22px;">&gt; <font color="#f6c11a">BIO | Астра</font>&nbsp;-&gt; Создатель: Подразделения BIO, Самых первых Баз Данных, БКПД&nbsp;</font></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 81.75px;" data-rs-tx="0" data-rs-ty="0"><font style="font-size: 22px;">&gt; <font color="#f6c11a">BIO | Плутоний</font> -&gt; Создатель: У.Д.А.В. ; Экзоскелет Б.И.З.О.Н. ; Работ по видам Кристаллов ; <br>Микробиологии (Спор) Мира Зен, Глав.Редактор и Основатель текущей Базы Данных подразделения</font></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 71.75px;" data-rs-tx="0" data-rs-ty="0"><span style="font-size: 22px;">&gt; </span><font color="#f6c11a" style="font-size: 22px;">BIO| Алазан </font><span style="font-size: 22px;">-&gt; Создатель: Оков "Гром" ; Ранних Версий Баз Данных Подразделения ; <br>Редактор Базы Данных</span></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 51.75px;" data-rs-tx="0" data-rs-ty="0"><font style="font-size: 22px;">&gt; <font color="#f6c11a">BIO | Молот</font> -&gt; Создатель: Сканера Портативного</font></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 71.75px;" data-rs-tx="0" data-rs-ty="0"><font color="#e0a020" face="Russo One, sans-serif"><span style="font-size: 22px;"><br></span></font></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 71.75px;" data-rs-tx="0" data-rs-ty="0"><font color="#e0a020" face="Unbounded, sans-serif" style="font-size: 32px;"><b><br></b></font></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 71.75px;" data-rs-tx="0" data-rs-ty="0"><font color="#e0a020" face="Unbounded, sans-serif" style="font-size: 32px;"><b>Сотрудники, что сделали научные работы, но особо не выделились</b></font></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 51.75px;" data-rs-tx="0" data-rs-ty="0"><font style="font-size: 22px;">&gt; <font color="#f5e29a">BIO | Блиц</font>&nbsp;-&gt; Создатель: Проекта&nbsp;“Граната Истребления Деструктивных Растущих Агентов”</font></p><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 51.75px;" data-rs-tx="0" data-rs-ty="0"><font style="font-size: 22px;">&gt; <font color="#f5e29a">BIO | Реминор</font> -&gt; Создатель: Работы "Поведение Вирмитов"</font></p><div class="bio-bgmusic" id="bgm_msyqfxwc" data-src="https://storage.yandexcloud.net/city-8/music/other/BIO-athem.mp3" contenteditable="false" style="display: inline-block; width: 28px; height: 28px; opacity: 0.35; border: 1px dashed rgb(136, 136, 136); border-radius: 4px; text-align: center; line-height: 28px; cursor: default;" title="Фоновая музыка (невидима на сайте): https://storage.yandexcloud.net/city-8/music/other/BIO-athem.mp3">♪</div><p style="text-align: center; box-sizing: border-box; width: 1559px; height: 51.75px;" data-rs-tx="0" data-rs-ty="0"><font style="font-size: 22px;"></font></p>
     </div>
 
     <div class="doc" id="doc-doc_msno293i">
@@ -4970,34 +4953,6 @@ consoleLog('ГАРТ-СИСТЕМА: ИИ-ассистент готов к ра�
 }
 }
 
-// Получение реального списка пользователей с сервера
-function updateOnlineUsers(currentUser) {
-const formData = new FormData();
-formData.append('callsign', currentUser);
-
-fetch('online.php', {
-method: 'POST',
-body: formData
-})
-.then(response => response.json())
-.then(data => {
-document.getElementById('online-num').textContent = data.count;
-
-// Форматируем позывные к нормальному виду (например, Шквал, Девиз)
-const formattedUsers = data.users.map(user => {
-const trimmed = user.trim();
-return window.formatNick ? window.formatNick(trimmed) : trimmed;
-});
-
-document.getElementById('online-num').textContent = formattedUsers.length;
-document.getElementById('online-users-list').textContent = formattedUsers.join(', ');
-})
-.catch(err => {
-console.error('Ошибка синхронизации онлайна:', err);
-document.getElementById('online-users-list').textContent = 'Нет связи...';
-});
-}
-
 // Авторизация, генерация автотокена безопасности и запуск аудио-контекста
 function submitAuth() {
 const input = document.getElementById('auth-callsign');
@@ -5006,11 +4961,6 @@ const formattedCallsign = callsign.toUpperCase();
 
 // Сохраняем позывной в локальное хранилище браузера для автозаполнения
 localStorage.setItem('saved_callsign', callsign);
-
-// Инициализация онлайна
-updateOnlineUsers(callsign);
-// Периодическое обновление списка каждые 8 секунд
-setInterval(() => updateOnlineUsers(callsign), 8000);
 
 // Предварительно кэшируем изображения в фоновом режиме во время загрузки
 preloadMedia();
@@ -5279,45 +5229,6 @@ input.value = saved;
     document.head.appendChild(style);
 
     // Внедрение разметки пейджера в сайдбар над панелью онлайна
-    const onlinePanel = document.querySelector('.online-panel');
-    if (onlinePanel) {
-      const pagerHTML = `
-        <div class="pager-panel">
-          <div class="pager-header">
-            <span class="pager-title">[ SECURE PAGER ]</span>
-            <span class="pager-header-r">
-              <span class="pager-status">CONNECTED</span>
-              <button type="button" id="pagerExpandBtn" class="pager-expand-btn" title="Открыть полный пейджер" onclick="openPanel('pager')">&#x2922;</button>
-            </span>
-          </div>
-          <div class="pager-screen" id="pagerScreen">
-            <div class="pager-messages" id="pagerMessages">
-              <div style="color:var(--tdim); font-size:10px; text-align:center; margin-top:40px;">Синхронизация...</div>
-            </div>
-          </div>
-          <form class="pager-input-area" id="pagerForm" autocomplete="off">
-            <input type="text" id="pagerInput" placeholder="Сообщение..." maxlength="200" required>
-            <button type="submit">&gt;</button>
-          </form>
-        </div>
-      `;
-      onlinePanel.insertAdjacentHTML('beforebegin', pagerHTML);
-    }
-
-    // Бесконечный и неразрушимый интервал для позывных
-    setInterval(() => {
-      const targetNode = document.getElementById('online-users-list');
-      if (targetNode) {
-        const text = targetNode.textContent;
-        if (text && !text.includes('online-user-span') && text !== "Синхронизация..." && text !== "Нет связи...") {
-          const users = text.split(',');
-          const formatted = users.map(user => {
-            return `<span class="online-user-span">${user.trim()}</span>`;
-          });
-          targetNode.innerHTML = formatted.join(', ');
-        }
-      }
-    }, 1000);
 
     function escapeHTML(str) {
       return str.replace(/[&<>'"]/g, tag => ({
@@ -5408,8 +5319,6 @@ input.value = saved;
       const boot = document.getElementById('boot');
       if (!boot || boot.style.display === 'none') {
         clearInterval(checkBoot);
-        fetchPagerMessages();
-        setInterval(fetchPagerMessages, 4000);
       }
     }, 500);
   })();
